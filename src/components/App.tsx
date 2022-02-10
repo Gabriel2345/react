@@ -1,8 +1,11 @@
 import React from 'react';
+import './App.css';
+
+import Board from './Board';
 import { GAME_SIZE } from '../settings/constants';
 
-import './App.css';
-import Board from './Board';
+
+
 
 function App() {
   return (
