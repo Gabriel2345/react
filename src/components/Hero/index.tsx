@@ -1,6 +1,7 @@
-import useEventListener from '@use-it/event-listener';
 import React from 'react';
-import { HEAD_OFFSET, TILE_SIZE } from '../../settings/constants';
+
+import useHeroMoviment from '../../hooks/useHeroMoviment';
+import { EDirection, HEAD_OFFSET, TILE_SIZE } from '../../settings/constants';
 
 import './index.css'
 
@@ -10,36 +11,22 @@ const initialPosition = {
 }
 
 const Hero = () => {
-  const [positionState, updatePositionState] = React.useState(initialPosition);
-  const [direction, updateDirectionState] = React.useState('RIGHT');
-
-  useEventListener('keydown', (event: { key: any; }) => {
-    if (event.key === 'ArrowLeft') {
-      updatePositionState({ x: positionState.x - 1, y: positionState.y });
-      updateDirectionState('LEFT');
-    } else if (event.key === 'ArrowRight') {
-      updatePositionState({ x: positionState.x + 1, y: positionState.y, });
-      updateDirectionState('RIGHT');
-    } else if (event.key === 'ArrowDown') {
-      updatePositionState({ x: positionState.x, y: positionState.y - 1, });
-    } else if (event.key === 'ArrowUp') {
-      updatePositionState({ x: positionState.x, y: positionState.y + 1, });
-    }
-  })
+  const { position, direction } = useHeroMoviment(initialPosition);
 
   return (
     <div
       style={{
         position: 'absolute',
-        bottom: TILE_SIZE * positionState.y,
-        left: TILE_SIZE * positionState.x,
+        bottom: TILE_SIZE * position.y,
+        left: TILE_SIZE * position.x,
         width: TILE_SIZE,
         height: TILE_SIZE + HEAD_OFFSET,
         backgroundImage: "url(./assets/HERO.png)",
         backgroundRepeat: 'no-repeat',
         backgroundPosition: `0px -${TILE_SIZE - HEAD_OFFSET}px`,
         animation: 'hero-animation 1s steps(4) infinite',
-        transform: `scaleX(${direction === 'RIGHT' ? 1 : -1})`
+        transform: `scaleX(${direction === EDirection.RIGHT ? 1 : -1})`,
+        zIndex: 1
       }}
     />
   )
