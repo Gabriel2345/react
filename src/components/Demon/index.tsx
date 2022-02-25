@@ -4,9 +4,14 @@ import { TILE_SIZE, DEMON_TILE_SIZE, EDirection } from '../../settings/constants
 
 import './index.css'
 
-const Demon = () => {
 
-  const { position, direction } = useEnemyMoviment({ x: 5, y: 5 });
+interface IProps {
+  initialPosition: { x: number, y: number }
+}
+
+const Demon = (props: IProps) => {
+
+  const { position, direction } = useEnemyMoviment(props.initialPosition);
 
   return (
     <div
