@@ -21,6 +21,11 @@ function useEnemyMoviment(initialPosition) {
         updateDirectionState(randomDirection)
         updatePositionState(moviment.nextPosition)
       }
+
+      if (moviment.nextMove.dead) {
+        alert("VOcê morreu!")
+        window.location.reload()
+      }
     }, 2000);
 
   return {

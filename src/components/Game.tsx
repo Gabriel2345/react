@@ -8,6 +8,7 @@ function Game() {
   return (
     <CanvasProvider>
       <ChestsProvider>
+
         <Debugger />
         <Board />
       </ChestsProvider>
